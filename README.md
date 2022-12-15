@@ -13,5 +13,5 @@ or Set-ExecutionPolicy RemoteSigned
 .\.venv\Scripts\activate
 
 4. Install required librairies
-
+pip install -r requirements.txt
 pip freeze > requirements.txt (to update requirements file with all installed packages)
