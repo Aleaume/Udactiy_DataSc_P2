@@ -3,7 +3,15 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
-
+    """Load and merge message and category data from the specified file paths.
+    
+    Args:
+        messages_filepath (str): The file path for the messages data.
+        categories_filepath (str): The file path for the categories data.
+    
+    Returns:
+        pd.DataFrame: The merged dataframe containing both the messages and categories data.
+    """
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
     df = messages.merge(categories, how='outer', on=['id'])
@@ -12,6 +20,21 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    """Clean and preprocess the input dataframe.
+    
+    This function performs the following operations on the input dataframe:
+        - Splits the 'categories' column into 36 individual columns
+        - Renames the columns using the first row of the categories dataframe
+        - Converts the values in the category columns to 0 or 1
+        - Drops the original 'categories' column
+        - Drops duplicates
+    
+    Args:
+        df (pd.DataFrame): The input dataframe containing the raw messages and categories data.
+    
+    Returns:
+        pd.DataFrame: The cleaned and preprocessed dataframe.
+    """
 
     # create a dataframe of the 36 individual category columns
     categories = df['categories'].str.split(";",expand=True)
@@ -46,7 +69,15 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
-
+    """Save the cleaned data to an SQLite database.
+    
+    Args:
+        df (pd.DataFrame): The cleaned dataframe to save.
+        database_filename (str): The filepath for the SQLite database.
+    
+    Returns:
+        None
+    """
     #Save the clean dataset into an sqlite database.
     engine = create_engine('sqlite:///{}'.format(database_filename))
     df.to_sql('Messages_cleaned', engine, index=False)
@@ -55,6 +86,15 @@ def save_data(df, database_filename):
 
 
 def main():
+
+    """Load, clean, and save data to an SQLite database.
+    
+    This function expects the filepaths for the messages and categories data as the first and second command line arguments, respectively, and the filepath for the SQLite database to save the cleaned data to as the third argument. It loads the data using the `load_data()` function, cleans it using the `clean_data()` function, and saves it to the specified database using the `save_data()` function.
+    
+    Returns:
+        None
+    """
+
     if len(sys.argv) == 4:
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
