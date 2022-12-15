@@ -12,10 +12,45 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
-    pass
+
+    # create a dataframe of the 36 individual category columns
+    categories = df['categories'].str.split(";",expand=True)
+
+    # select the first row of the categories dataframe
+    row = categories[:1]
+
+    # extract a list of new column names for categories.
+    category_colnames = (row.apply(lambda x : x.str[:-2],axis=1)).values.tolist()
+
+    # rename the columns of `categories`
+    categories.columns = category_colnames
+    
+    # Convert category values to just numbers 0 or 1.
+    for column in categories:
+        categories[column] = categories[column].apply(lambda x : x[-1:])
+        categories[column] = categories[column].astype(int)
+    
+    # drop the original categories column from `df`
+    df = df.drop('categories',axis=1)
+
+    # Convert `categories` columns from MultiIndex to Index
+    categories.columns = categories.columns.get_level_values(0)
+
+    # concatenate the original dataframe with the new `categories` dataframe
+    df = pd.concat([df,categories],axis=1)
+
+    # drop duplicates
+    df = df.drop_duplicates()
+
+    return df
 
 
 def save_data(df, database_filename):
+
+    #Save the clean dataset into an sqlite database.
+    engine = create_engine('sqlite:///{}'.format(database_filename))
+    df.to_sql('Messages_cleaned', engine, index=False)
+
     pass  
 
 
