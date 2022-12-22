@@ -22,13 +22,14 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import ConfusionMatrixDisplay
 
 def load_data(database_filepath):
 
     # load data from database
-    engine = create_engine('sqlite://{}'.format(database_filepath))
+    engine = create_engine('sqlite:///{}'.format(database_filepath))
     df = pd.read_sql_table('Messages_cleaned',engine)
 
     # X represents the independent variables, or the features, that are used to predict the output variable Y.
@@ -76,7 +77,7 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    predicted = model.predict(X_test['message'])
+    predicted = model.predict(X_test['message'].values.flatten())
     labels = np.unique(predicted)
 
     i=0
@@ -114,7 +115,7 @@ def main():
         model = build_model()
         
         print('Training model...')
-        model.fit(X_train, Y_train)
+        model.fit(X_train.values.flatten(), Y_train.values)
         
         print('Evaluating model...')
         evaluate_model(model, X_test, Y_test, category_names)

@@ -28,6 +28,7 @@ def clean_data(df):
         - Converts the values in the category columns to 0 or 1
         - Drops the original 'categories' column
         - Drops duplicates
+        - Replace related entries of 2 with 1 (see notebook for more details)
     
     Args:
         df (pd.DataFrame): The input dataframe containing the raw messages and categories data.
@@ -64,6 +65,10 @@ def clean_data(df):
 
     # drop duplicates
     df = df.drop_duplicates()
+    
+    #clean related column, replace 2  with 1
+
+    df.related = df.related.replace(2,1,inplace=True)
 
     return df
 
