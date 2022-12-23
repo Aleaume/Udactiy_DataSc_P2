@@ -29,6 +29,7 @@ def clean_data(df):
         - Drops the original 'categories' column
         - Drops duplicates
         - Replace related entries of 2 with 1 (see notebook for more details)
+
     
     Args:
         df (pd.DataFrame): The input dataframe containing the raw messages and categories data.
@@ -48,7 +49,7 @@ def clean_data(df):
 
     # rename the columns of `categories`
     categories.columns = category_colnames
-    
+
     # Convert category values to just numbers 0 or 1.
     for column in categories:
         categories[column] = categories[column].apply(lambda x : x[-1:])
@@ -56,6 +57,8 @@ def clean_data(df):
     
     # drop the original categories column from `df`
     df = df.drop('categories',axis=1)
+
+    
 
     # Convert `categories` columns from MultiIndex to Index
     categories.columns = categories.columns.get_level_values(0)
@@ -67,8 +70,7 @@ def clean_data(df):
     df = df.drop_duplicates()
     
     #clean related column, replace 2  with 1
-
-    df.related = df.related.replace(2,1,inplace=True)
+    df.replace({'related': 2}, 1, inplace = True)
 
     return df
 
