@@ -49,6 +49,12 @@ def index():
     categories_name = df_count_cat.index.to_list()
     categories_count = df_count_cat.values
 
+    #Average length of messages per category
+    df['message_len'] = df['message'].astype(str).map(len)
+    categories_avg_len = []
+    for col in categories_name:
+        avg = df.loc[df[col] == 1, 'message_len'].sum() / df.loc[df[col] == 1,'id'].count()
+        categories_avg_len.append(avg)
 
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -84,13 +90,36 @@ def index():
                 'title': 'Distribution of Message Categories',
                 'yaxis': {
                     'title': "Categories",
-                    'margin':'500'
+                    'automargin': True
+
                 },
                 'xaxis': {
                     'title': "Count"
                 }
             }
+        },
+        {
+            'data': [
+                Bar(
+                    x=categories_avg_len,
+                    y=categories_name,
+                    orientation = 'h'
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Message Average Length per Categories',
+                'yaxis': {
+                    'title': "Categories",
+                    'automargin': True
+
+                },
+                'xaxis': {
+                    'title': "Message Length"
+                }
+            }
         }
+
     ]
     
     # encode plotly graphs in JSON
