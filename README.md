@@ -39,8 +39,21 @@ pip freeze > requirements.txt (to update requirements file with all installed pa
 4. Click the `PREVIEW` button to open the homepage
 
 ##Files Descriptions
-
+Files are splitted into 2 parts:
+- preparation, that was used for the planing / testing & experimentation part of the project
+- workspace, a replica of the Udacity project folder structure, this is the result of the project work
+- 
 ###Datasets
+In the preparation the datasets used are:
+-categories.csv, a sample csv file used for ETL pipeline preparation work containing the associated categories for each matching message
+-messages.csv, a sample of messages, in original and with its english translation also used for prep. work in the ETL pipeline
+-message.db, is the result of the ETL pipeline preparation work, a simple DB with 1 table containing the cleaned messages.
+
+In the workspace folder we can find similar datasets:
+-disaster_categories.csv, the file containing the categories for matching messages that are used for the ETL steps.
+-disaster_messages.csv, the messages used during the ETL steps.
+-DisasterResponse.db, the output of the ETL run data/process_data.py
+
 
 ###Notebooks
 
@@ -48,5 +61,12 @@ pip freeze > requirements.txt (to update requirements file with all installed pa
 
 ###Python Scripts
 
+## High Level Project Steps
+
+### ETL Pipeline
+
+### ML Pipeline
+
+### Web App
 
 ##Licensing, Authors, Acknowledgements, etc.
