@@ -203,3 +203,5 @@ On the Main page you can also see 3 visuals:
 
 
 ## Licensing, Authors, Acknowledgements, etc.
+
+- Data provided by Appen (formally Figure 8) to build a model for an API that classifies disaster messages: https://www.figure-eight.com/
