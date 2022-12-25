@@ -2,6 +2,13 @@
  Udacity Data Science Project 2 - Disaster Response Pipeline
  
  ## Objectives of Project
+ 
+In this project, we analyze disaster data from Appen (formally Figure 8) to build a model for an API that classifies disaster messages.
+
+ We'll be creating a machine learning pipeline to categorize these events so that we can send the messages to an appropriate disaster relief agency.
+
+The project has to include a web app where an emergency worker can input a new message and get classification results in several categories. The web app will also display visualizations of the data.
+ 
  <img width="286" alt="image" src="https://user-images.githubusercontent.com/32632731/209450288-69649292-0b67-43f8-81b7-52aaf3a8d5a6.png">
 
 
