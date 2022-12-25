@@ -42,7 +42,7 @@ pip freeze > requirements.txt (to update requirements file with all installed pa
 Files are splitted into 2 parts:
 - preparation, that was used for the planing / testing & experimentation part of the project
 - workspace, a replica of the Udacity project folder structure, this is the result of the project work
-- 
+
 ### Datasets
 In the preparation the datasets used are:
 -categories.csv, a sample csv file used for ETL pipeline preparation work containing the associated categories for each matching message
@@ -138,8 +138,52 @@ The current Model is a RandomForestClassifier using standard parameters, however
 
 ```
 
-- Model #2 - RandomForestClassifier
-- Model #3 - 
+- Model #2 - RandomForestClassifier, after some help with
+
+Cross Validation Grid Search
+
+```python
+
+parameters = {
+    'clf__n_jobs':[2,4,6],
+    'clf__estimator__max_depth' : [4,5,6,7,8],
+    'clf__estimator__max_features': ['auto','sqrt','log2']
+    }
+# create grid search object   param_grid=parameters
+cv = GridSearchCV(pipeline,param_grid=parameters,verbose=2)
+
+```
+
+the following parameters have been ran:
+
+```python
+
+pipeline.set_params(
+    clf__estimator__verbose=1,
+    clf__estimator__max_features ='log2',
+    clf__n_jobs = 6,
+    clf__estimator__n_estimators = 200
+    )
+
+```
+
+
+- Model #3 - KNeighborsClassifier
+
+```python
+
+pipeline_K = Pipeline([
+    ('vect',CountVectorizer(tokenizer=tokenize)),
+    ('tfidf',TfidfTransformer()),
+    ('clf',MultiOutputClassifier(KNeighborsClassifier())),
+])
+
+```
+
+Finally we compared the results:
+
+![image](https://user-images.githubusercontent.com/32632731/209477433-f9c66200-cf41-4770-bb6c-b6fd645d6eb5.png)
+
 
 ### Web App
 
