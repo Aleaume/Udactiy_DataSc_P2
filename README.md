@@ -190,4 +190,16 @@ Finally we compared the results:
 
 ### Web App
 
+This is the final part of the project where it all comes together. The Web app runs a local Flask web app.
+From the interface, user can then type in a message and see where the developped model would match this among the 36 categories.
+On the Main page you can also see 3 visuals:
+
+- Distribution of Message Genres, part of the sample file given by Udactiy material for the project
+- Distribution of Message Categories
+![image](https://user-images.githubusercontent.com/32632731/209477841-b7b0ec4b-46d8-40e1-b055-f51fd72c64bf.png)
+
+- Distribution of Message Average Length per Categories
+![image](https://user-images.githubusercontent.com/32632731/209477850-075a912f-18d2-4966-8485-c9326170c5f9.png)
+
+
 ## Licensing, Authors, Acknowledgements, etc.
