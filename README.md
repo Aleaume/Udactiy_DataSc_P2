@@ -183,6 +183,9 @@ pipeline_K = Pipeline([
 Finally we compared the results:
 
 ![image](https://user-images.githubusercontent.com/32632731/209477433-f9c66200-cf41-4770-bb6c-b6fd645d6eb5.png)
+<img width="467" alt="image" src="https://user-images.githubusercontent.com/32632731/209477527-a142e367-2c8f-40ba-90a6-0412534eeed7.png">
+<img width="467" alt="image" src="https://user-images.githubusercontent.com/32632731/209477514-c4bb1435-413f-4d59-8247-23c51e94ee49.png">
+<img width="467" alt="image" src="https://user-images.githubusercontent.com/32632731/209477500-cb7a0714-9293-41c7-95f5-abb88e7719d0.png">
 
 
 ### Web App
