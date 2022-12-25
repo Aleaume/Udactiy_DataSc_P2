@@ -85,8 +85,12 @@ def tokenize(text):
 def build_model():
     """Build a model using a pipeline of transformers and a classifier.
 
+        It creates:
+                - A pipeline object that includes CountVectorizer, TfidfTransformer, and a MultiOutputClassifier with a RandomForestClassifier.
+                - Hyperparameters to cross-validate
+                - GridSearch
     Returns:
-    - A pipeline object that includes CountVectorizer, TfidfTransformer, and a MultiOutputClassifier with a RandomForestClassifier.
+    - A model object that includes a GridSearch Cross-validation based on selected Hyperparameters.
     """
 
     # build pipeline
@@ -96,7 +100,17 @@ def build_model():
         ('clf',MultiOutputClassifier(RandomForestClassifier())),
     ])
 
-    return pipeline
+    #setting hyperparameters to cross-validate
+    parameters = {
+        'clf__n_jobs':[2,4,6],
+        'clf__estimator__max_depth' : [4,8],
+        'clf__estimator__max_features': ['auto','sqrt','log2']
+        }
+
+    # create grid search object   param_grid=parameters
+    cv = GridSearchCV(pipeline,param_grid=parameters,verbose=2)
+
+    return cv
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
