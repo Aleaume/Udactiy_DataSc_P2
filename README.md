@@ -84,7 +84,62 @@ There 2 main notebooks & 1 optional notebook in this Repository, there are locat
 
 ### ETL Pipeline
 
+This Extract Transform Pipeline goes through different fucntions in order to create a clean DB Table from the 2 Csv datasets.
+
+- First it loads and merges message and category data from the specified file paths
+- Then, data is cleaned and pre-processed in a this function that performs the following operations on the input dataframe:
+        - Splits the 'categories' column into 36 individual columns
+        - Renames the columns using the first row of the categories dataframe
+        - Converts the values in the category columns to 0 or 1
+        - Drops the original 'categories' column
+        - Drops duplicates
+        - Replace related entries of 2 with 1 (see notebook for more details)
+- Finally a last function saves the cleaned data to an SQLite database.
+
 ### ML Pipeline
+
+This part of the project is responsible to create a Classifier Model to categorize a message in the selected 36 different ones.
+
+- First it loads data from the given database file.
+- There is also a tokenize function that tokenizes and normalizes the given text.
+- The Data loaded is splitted between train & test.
+- Then in antoher function it builds a model using a pipeline of transformers and a classifier.
+- After that it Evaluates the given model on the given test data in another function.
+- Finally, it saves the given model to the specified filepath.
+
+#### Model Exploration
+
+The current Model is a RandomForestClassifier using standard parameters, however 3 different Model setup have been explored in the Preparation phase:
+
+- Model #1 - RandomForestClassifier
+
+```python
+
+'clf__estimator__bootstrap': True,
+ 'clf__estimator__ccp_alpha': 0.0,
+ 'clf__estimator__class_weight': None,
+ 'clf__estimator__criterion': 'gini',
+ 'clf__estimator__max_depth': None,
+ 'clf__estimator__max_features': 'sqrt',
+ 'clf__estimator__max_leaf_nodes': None,
+ 'clf__estimator__max_samples': None,
+ 'clf__estimator__min_impurity_decrease': 0.0,
+ 'clf__estimator__min_samples_leaf': 1,
+ 'clf__estimator__min_samples_split': 2,
+ 'clf__estimator__min_weight_fraction_leaf': 0.0,
+ 'clf__estimator__n_estimators': 100,
+ 'clf__estimator__n_jobs': None,
+ 'clf__estimator__oob_score': False,
+ 'clf__estimator__random_state': None,
+ 'clf__estimator__verbose': 1,
+ 'clf__estimator__warm_start': False,
+ 'clf__estimator': RandomForestClassifier(verbose=1),
+ 'clf__n_jobs': None
+
+```
+
+- Model #2 - RandomForestClassifier
+- Model #3 - 
 
 ### Web App
 
